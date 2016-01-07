@@ -20,6 +20,17 @@ import com.heroku.sdk.jdbc.DatabaseUrl;
 
 public class Main {
 
+  public class Station{
+
+    public String name;
+  }
+
+  public class Connection{
+
+    public Station pointA;
+    public Station pointB;
+  }
+
   public static void main(String[] args) {
 
     port(Integer.valueOf(System.getenv("PORT")));
@@ -30,6 +41,13 @@ public class Main {
       Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
       return "E=mc^2: 12 GeV = " + m.toString();
     });
+
+    get("/stations", (request, response) -> {
+      Map<String, Object> attributes = new HashMap<>();
+      attributes.put("message", "Hello World!");
+
+      return new ModelAndView(attributes, "pathFinder.ftl");
+    }, new FreeMarkerEngine());
 
     get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
