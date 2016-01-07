@@ -50,8 +50,8 @@ public class Main {
       //D to B 5
       //C to E 3
       Map<String, Object> attributes = new HashMap<>();
-      if ((request.queryParams("pointA")!=null)&&(request.queryParams("pointB")!=null))
-      attributes.put("message", Dijkstra.test(request.queryParams("pointA"),request.queryParams("pointB")));
+      if ((request.queryParams("start")!=null)&&(request.queryParams("end")!=null))
+      attributes.put("message", Dijkstra.test(request.queryParams("start"),request.queryParams("end")));
       else attributes.put("message", "Press submit");
 
       return new ModelAndView(attributes, "pathFinder.ftl");

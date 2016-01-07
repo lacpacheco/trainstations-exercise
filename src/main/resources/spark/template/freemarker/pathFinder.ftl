@@ -10,13 +10,27 @@
 <div class="container">
 
 <div class="alert alert-info text-center" id="testDiv" role="alert">
-    Shortest route finder (Stations available: A, B, C, D, E)
+    Shortest route finder
     <form method="get">
     <div>
-        StationA <input type="text" class="sia" name="pointA">
+        Start Station
+        <select name="start">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+        </select>
     </div>
     <div>
-        StationB <input type="text" class="sia" name="pointB">
+        End Station
+        <select name="end">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+    </select>
     </div>
         <input type="submit" value="Submit">
     </form>
