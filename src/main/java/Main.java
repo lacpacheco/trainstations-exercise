@@ -20,16 +20,7 @@ import com.heroku.sdk.jdbc.DatabaseUrl;
 
 public class Main {
 
-  public class Station{
 
-    public String name;
-  }
-
-  public class Connection{
-
-    public Station pointA;
-    public Station pointB;
-  }
 
   public static void main(String[] args) {
 
