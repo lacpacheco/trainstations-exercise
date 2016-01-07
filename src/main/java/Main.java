@@ -35,7 +35,7 @@ public class Main {
       return "E=mc^2: 12 GeV = " + m.toString();
     });
 
-    get("/stations", (request, response) -> {
+    get("/", (request, response) -> {
       //System.out.println("pointA: " + request.queryParams("pointA")+"; pointB: " + request.queryParams("pointB"));
       //System.out.println("pointB.toString: " + request.queryParams("pointB"));
       //String[] stations = {"A","B","C","D","E"};
@@ -50,14 +50,15 @@ public class Main {
       //D to B 5
       //C to E 3
       Map<String, Object> attributes = new HashMap<>();
-      if ((request.queryParams("start")!=null)&&(request.queryParams("end")!=null))
+      if ((request.queryParams("start")==null)||(request.queryParams("end")==null))
+        attributes.put("message", "Choose stations and press submit");
+      else
       attributes.put("message", Dijkstra.test(request.queryParams("start"),request.queryParams("end")));
-      else attributes.put("message", "Press submit");
 
       return new ModelAndView(attributes, "pathFinder.ftl");
     }, new FreeMarkerEngine());
 
-    get("/", (request, response) -> {
+    get("/home", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("message", "Hello World!");
             System.out.println("Request.toString: " + request.toString());
@@ -161,6 +162,8 @@ class Dijkstra
 
   public static String test(String pointA, String pointB)
   {
+    if ((pointA.equals(""))||(pointB.equals(""))) return "Invalid input";
+
     System.out.println("pointA: " + pointA+"; pointB: " + pointB);
     Vertex stationA = null;
     Vertex stationB = null;
@@ -183,7 +186,6 @@ class Dijkstra
     if (pointB.equals("D")) stationB = D;
     if (pointB.equals("E")) stationB = E;
 
-    if ((pointA==null)||(pointB==null)) return "Invalid input";
     /*
     Vertex K = new Vertex("K");
     Vertex J = new Vertex("J");
