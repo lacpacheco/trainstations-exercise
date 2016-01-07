@@ -2,9 +2,7 @@
 <html>
 <head>
   <#include "header.ftl">
-    <script>
-        $("#testDiv").append("scascascasca");
-    </script>
+
 </head>
 
 <body>
@@ -57,7 +55,9 @@
     Teste para ver se js resulta.
   </div>
 </div>
-
+  <script>
+      $("#testDiv").append("scascascasca");
+  </script>
 
 </body>
 </html>
