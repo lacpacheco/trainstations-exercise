@@ -10,13 +10,17 @@
 <div class="container">
 
 <div class="alert alert-info text-center" id="testDiv" role="alert">
-    Teste para ver se js resulta. ${message}
+    Shortest route finder (Stations available: A, B, C, D, E)
+    <form method="get">
     <div>
-        StationA <input type="text" class="sia" name="numero" placeholder="A">
+        StationA <input type="text" class="sia" name="pointA">
     </div>
     <div>
-        StationB <input type="text" class="sia" name="numero" placeholder="B">
+        StationB <input type="text" class="sia" name="pointB">
     </div>
+        <input type="submit" value="Submit">
+    </form>
+    ${message}
 </div>
 </div>
 <script>

@@ -36,6 +36,8 @@ public class Main {
     });
 
     get("/stations", (request, response) -> {
+      //System.out.println("pointA: " + request.queryParams("pointA")+"; pointB: " + request.queryParams("pointB"));
+      //System.out.println("pointB.toString: " + request.queryParams("pointB"));
       //String[] stations = {"A","B","C","D","E"};
       //A to B 3
       //B to A 3
@@ -48,7 +50,9 @@ public class Main {
       //D to B 5
       //C to E 3
       Map<String, Object> attributes = new HashMap<>();
-      attributes.put("message", Dijkstra.test());
+      if ((request.queryParams("pointA")!=null)&&(request.queryParams("pointB")!=null))
+      attributes.put("message", Dijkstra.test(request.queryParams("pointA"),request.queryParams("pointB")));
+      else attributes.put("message", "Press submit");
 
       return new ModelAndView(attributes, "pathFinder.ftl");
     }, new FreeMarkerEngine());
@@ -56,8 +60,10 @@ public class Main {
     get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("message", "Hello World!");
+            System.out.println("Request.toString: " + request.toString());
+            System.out.println("response.toString: " + response.toString());
 
-            return new ModelAndView(attributes, "index.ftl");
+      return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());
 
     get("/db", (req, res) -> {
@@ -153,13 +159,32 @@ class Dijkstra
     return path;
   }
 
-  public static String test()
+  public static String test(String pointA, String pointB)
   {
+    System.out.println("pointA: " + pointA+"; pointB: " + pointB);
+    Vertex stationA = null;
+    Vertex stationB = null;
     // mark all the vertices
     Vertex A = new Vertex("A");
     Vertex B = new Vertex("B");
+    Vertex C = new Vertex("C");
     Vertex D = new Vertex("D");
-    Vertex F = new Vertex("F");
+    Vertex E = new Vertex("E");
+
+    if (pointA.equals("A")) stationA = A;
+    if (pointA.equals("B")) stationA = B;
+    if (pointA.equals("C")) stationA = C;
+    if (pointA.equals("D")) stationA = D;
+    if (pointA.equals("E")) stationA = E;
+
+    if (pointB.equals("A")) stationB = A;
+    if (pointB.equals("B")) stationB = B;
+    if (pointB.equals("C")) stationB = C;
+    if (pointB.equals("D")) stationB = D;
+    if (pointB.equals("E")) stationB = E;
+
+    if ((pointA==null)||(pointB==null)) return "Invalid input";
+    /*
     Vertex K = new Vertex("K");
     Vertex J = new Vertex("J");
     Vertex M = new Vertex("M");
@@ -167,12 +192,25 @@ class Dijkstra
     Vertex P = new Vertex("P");
     Vertex R = new Vertex("R");
     Vertex Z = new Vertex("Z");
+    */
 
+//A to B 3
+    //B to A 3
+    //A to D 6
+    //B to C 7
+    //C to D 8
+    //D to E 9
+    //E to D 9
+    //D to C 9
+    //D to B 5
+    //C to E 3
     // set the edges and weight
-    A.adjacencies = new Edge[]{ new Edge(M, 8) };
-    B.adjacencies = new Edge[]{ new Edge(D, 11) };
-    D.adjacencies = new Edge[]{ new Edge(B, 11) };
-    F.adjacencies = new Edge[]{ new Edge(K, 23) };
+    A.adjacencies = new Edge[]{ new Edge(B, 3), new Edge(D,6) };
+    B.adjacencies = new Edge[]{ new Edge(A, 3), new Edge(C,7) };
+    C.adjacencies = new Edge[]{ new Edge(D, 8), new Edge(E,3) };
+    D.adjacencies = new Edge[]{ new Edge(E, 9), new Edge(C,9), new Edge(B,5) };
+    E.adjacencies = new Edge[]{ new Edge(D, 9) };
+    /*
     K.adjacencies = new Edge[]{ new Edge(O, 40) };
     J.adjacencies = new Edge[]{ new Edge(K, 25) };
     M.adjacencies = new Edge[]{ new Edge(R, 8) };
@@ -180,13 +218,14 @@ class Dijkstra
     P.adjacencies = new Edge[]{ new Edge(Z, 18) };
     R.adjacencies = new Edge[]{ new Edge(P, 15) };
     Z.adjacencies = new Edge[]{ new Edge(P, 18) };
+    */
 
 
-    computePaths(A); // run Dijkstra
-    System.out.println("Distance to " + Z + ": " + Z.minDistance);
-    List<Vertex> path = getShortestPathTo(Z);
+    computePaths(stationA); // run Dijkstra
+    System.out.println("Distance to " + stationB + ": " + stationB.minDistance);
+    List<Vertex> path = getShortestPathTo(stationB);
     System.out.println("Path: " + path);
 
-    return path.toString();
+    return "From " + pointA + " to " + pointB +": " + path.toString();
   }
 }
