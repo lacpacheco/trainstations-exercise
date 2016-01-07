@@ -35,7 +35,7 @@ public class Main {
       Map<String, Object> attributes = new HashMap<>();
       attributes.put("message", "Hello World!");
 
-      return new ModelAndView(attributes, "index.ftl");
+      return new ModelAndView(attributes, "pathFinder.ftl");
     }, new FreeMarkerEngine());
 
     get("/", (request, response) -> {
