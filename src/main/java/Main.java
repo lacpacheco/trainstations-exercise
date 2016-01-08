@@ -29,26 +29,16 @@ public class Main {
     port(Integer.valueOf(System.getenv("PORT")));
     staticFileLocation("/public");
 
+    /*
     get("/hello", (req, res) -> {
       RelativisticModel.select();
       Amount<Mass> m = Amount.valueOf("12 GeV").to(KILOGRAM);
       return "E=mc^2: 12 GeV = " + m.toString();
     });
+    */
 
     get("/", (request, response) -> {
-      //System.out.println("pointA: " + request.queryParams("pointA")+"; pointB: " + request.queryParams("pointB"));
-      //System.out.println("pointB.toString: " + request.queryParams("pointB"));
-      //String[] stations = {"A","B","C","D","E"};
-      //A to B 3
-      //B to A 3
-      //A to D 6
-      //B to C 7
-      //C to D 8
-      //D to E 9
-      //E to D 9
-      //D to C 9
-      //D to B 5
-      //C to E 3
+
       Map<String, Object> attributes = new HashMap<>();
       if ((request.queryParams("start")==null)||(request.queryParams("end")==null))
         attributes.put("message", "Choose stations and press submit");
@@ -58,6 +48,18 @@ public class Main {
       return new ModelAndView(attributes, "pathFinder.ftl");
     }, new FreeMarkerEngine());
 
+    post("/", (request, response) -> {
+
+      Map<String, Object> attributes = new HashMap<>();
+      if ((request.queryParams("start")==null)||(request.queryParams("end")==null))
+        attributes.put("message", "Choose stations and press submit");
+      else
+        attributes.put("message", Dijkstra.test(request.queryParams("start"),request.queryParams("end")));
+
+      return new ModelAndView(attributes, "pathFinder.ftl");
+    }, new FreeMarkerEngine());
+
+    /*
     get("/home", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
             attributes.put("message", "Hello World!");
@@ -92,6 +94,8 @@ public class Main {
         if (connection != null) try{connection.close();} catch(SQLException e){}
       }
     }, new FreeMarkerEngine());
+
+    */
 
   }
 
