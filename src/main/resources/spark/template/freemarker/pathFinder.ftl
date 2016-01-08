@@ -2,23 +2,47 @@
 <html>
 <head>
 <#include "header.ftl">
-
+<title>Shortest Route Finder</title>
 </head>
 
 <body>
 
 <div class="container">
 
-    <div class="alert alert-info" id="pathList" style="float:right;width: 20%;padding: 14px;">List of paths added</div>
-    <div class="alert alert-info" id="stationList" style="float:right;margin-right: 40px;width: 20%;padding: 14px;">List of stations added</div>
-    <div class="alert alert-info" id="testDiv" role="alert">
-        <h1>Shortest path finder</h1>
+    <div class="alert alert-info" id="pathList" style="float:right;width: 20%;padding: 14px;">
+        <h4>List of routes</h4>
+        A-B, 3 minutes<br>
+        B-A, 3 minutes<br>
+        A-D, 6 minutes<br>
+        B-C, 7 minutes<br>
+        C-D, 8 minutes<br>
+        D-E, 9 minutes<br>
+        E-D, 9 minutes<br>
+        D-C, 9 minutes<br>
+        D-B, 5 minutes<br>
+        C-E, 3 minutes
+    </div>
+    <div class="alert alert-info" id="stationList" style="float:right;margin-right: 40px;width: 20%;padding: 14px;">
+        <h4>List of stations</h4>
+        A<br>
+        B<br>
+        C<br>
+        D<br>
+        E<br>
+
+    </div>
+    <div class="alert alert-info" id="testDiv" role="alert"  style="min-height: 400px;">
+        <h1>Shortest Route Finder</h1>
 
         <div style="width:50%;">
+            <div style="display: none;">
+            <form>
             <div id="addStation">
-                <span><input type="text" id="stationName"/></span>
-                <button id="inputStationName">Submit</button>
+                <span><input type="text" id="stationName" style="width:120px;"/>
+                <input type="submit" id="inputStationName"></input></span>
             </div>
+            </form>
+            <form>
             <div id="addPath">
                 <span>
                     <select name="addStart" id="addStart">
@@ -39,13 +63,15 @@
                     </select>
                     <input id="weight" style="width:40px;" type="number"/>
                 </span>
-                <button id="inputStationName">Submit</button>
+                <input type="submit" id="inputStationName"></input>
+            </div>
+            </form>
             </div>
 
             <form method="post">
                 <div>
                     <br>
-                    Start Station
+                    <span>Start Station</span>
                     <select name="start" id="start">
                         <option value=""></option>
                         <option value="A">A</option>
@@ -58,7 +84,7 @@
                 </div>
 
                 <div>
-                    End Station
+                    <span>End Station</span>
                     <select name="end" id="end">
                         <option value=""></option>
                         <option value="A">A</option>
@@ -71,7 +97,9 @@
                 <input type="submit" value="Submit">
             </form>
             <br>
-        ${message}
+            <br>
+            <br>
+        <h3>${message}</h3>
         </div>
     </div>
 </div>
